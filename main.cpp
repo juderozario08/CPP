@@ -1,44 +1,32 @@
 #include <iostream>
-#include <cstdlib>
 
-using namespace std;
-
-class Person{
-    private:
-        string name;
-        int age;
-        string height;
-        double weight;
-    public:
-    Person(){
-        this->name = "No Name";
-        this->age = 0;
-        this->height = "5 Foot";
-        this->weight = 60.0;
+void printPolynomial(int coefficients[], int size){
+    std::string output;
+    int degree = size - 1;
+    int i = 0;
+    while(degree != -1){
+        if (coefficients[i] <= 0 )
+            output.append("-");
+        else if (i != 0)
+            output.append("+");
+        output.append(std::to_string(abs(coefficients[i])));
+        if (degree != 0){
+            output.append("x^");
+            output.append(std::to_string(degree));
+        }
+        degree--; i++;
     }
-    Person(string name, int age, string height, double weight){
-        this->name = std::move(name);
-        this->age = age;
-        this->height = std::move(height);
-        this->weight = weight;
-    }
-    string getName(){
-        return this->name;
-    }
-    int getAge() const{
-        return this->age;
-    }
-    string getHeight(){
-        return this->height;
-    }
-    double getWeight() const{
-        return this->weight;
-    }
-};
-
-int main() {
-    Person person1("Jude Rozario", 19, "5 foot 10 inches", 85.5);
-    cout << person1.getWeight();
+    std::cout << output << std::endl;
 }
 
-
+int main() {
+    std::cout << "Degree of the function: ";
+    int degree; std::cin >> degree; degree++;
+    int coefficients[degree];
+    std::cout << "Enter the coefficients (Highest degree first):\n";
+    for (int i = 0; i < degree; i++){
+        std::cin >> coefficients[i];
+    }
+    printPolynomial(coefficients, degree);
+    return 0;
+}
